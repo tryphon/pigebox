@@ -22,6 +22,7 @@ class pige {
   include pige::storage
   include pige::http
   include pige::lib
+  include pige::frontend
 }
 
 class pige::alsabackup {
@@ -83,5 +84,29 @@ class pige::storage {
 class pige::http {
   file { "/var/www/pige":
     ensure => "/srv/pige"
+  }
+}
+
+class pige::frontend {
+  include apt::tryphon
+
+  file { ["/srv/pige/chunks", "/srv/pige/db"]:
+    ensure => directory,
+    owner => "www-data"
+  }
+  file { "/etc/pige/database.yml":
+    source => "$source_base/files/pige/database.yml",
+    require => Package[pige]
+  }
+  file { "/etc/pige/production.rb":
+    source => "$source_base/files/pige/production.rb",
+    require => Package[pige]
+  }
+  package { pige: 
+    require => File["/etc/apt/sources.list.d/tryphon.list"]
+  }
+  file { "/var/log.model/pige": 
+    ensure => directory, 
+    owner => www-data
   }
 }

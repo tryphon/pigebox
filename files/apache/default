@@ -1,16 +1,23 @@
 <VirtualHost *:80>
 	ServerAdmin webmaster@localhost
+
+  DocumentRoot /usr/share/pige/public
+  PassengerDefaultUser www-data
+  PassengerMaxPoolSize 3
+  PassengerMaxRequests 10000
+  PassengerLogLevel 3
+  <Directory /usr/share/pige/public>
+     AllowOverride None
+     Order allow,deny
+     Allow from all
+  </Directory>
 	
-	DocumentRoot /var/www/
-	<Directory />
-		Options FollowSymLinks
-		AllowOverride None
-	</Directory>
-	<Directory /var/www/>
+	Alias /raw /var/www/pige
+	<Directory /var/www/pige>
 		Options Indexes FollowSymLinks MultiViews
 		AllowOverride None
 		Order allow,deny
-		allow from all
+		Allow from all
 	</Directory>
 
 	ScriptAlias /cgi-bin/ /usr/lib/cgi-bin/
