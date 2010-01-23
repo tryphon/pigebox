@@ -18,6 +18,7 @@ class munin::readonly {
     owner => munin, 
     group => adm
   }
+    
 }
 
 class munin-node {
@@ -29,6 +30,7 @@ class munin-node {
   }
 
   file { "/etc/munin/plugins/df":
-    ensure => "/usr/share/munin/plugins/df"
+    ensure => "/usr/share/munin/plugins/df",
+    require => Package["munin-node"]
   }
 }
