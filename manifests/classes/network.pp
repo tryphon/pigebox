@@ -11,10 +11,12 @@ class network::dhcp::readonly {
   include readonly::common
 
   file { "/etc/dhcp3/dhclient.conf":
-    source => "$source_base/files/dhcp3/dhclient.conf"
+    source => "$source_base/files/dhcp3/dhclient.conf", 
+    require => Package["dhcp3-client"] 
   } 
   file { "/etc/dhcp3/dhclient-script":
-    source => "$source_base/files/dhcp3/dhclient-script"
+    source => "$source_base/files/dhcp3/dhclient-script", 
+    require => Package["dhcp3-client"] 
   } 
 
   file { "/var/etc/resolv.conf":
