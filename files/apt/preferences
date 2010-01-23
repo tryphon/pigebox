@@ -5,3 +5,7 @@ Pin-Priority: 999
 Package: libapache2-mod-passenger
 Pin: release a=lenny-backports
 Pin-Priority: 999
+
+Package: libtag1c2a
+Pin: release a=lenny-backports
+Pin-Priority: 999
