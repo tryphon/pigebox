@@ -29,7 +29,7 @@ class pige::alsabackup {
   include apt::tryphon
 
   package { alsa-backup: 
-    require => File["/etc/apt/sources.list.d/tryphon.list"]
+    require => Apt::Source[tryphon]
   }
 
   # TODO fix alsa-backup libraries names
@@ -103,7 +103,7 @@ class pige::frontend {
     require => Package[pige]
   }
   package { pige: 
-    require => File["/etc/apt/sources.list.d/tryphon.list"]
+    require => Apt::Source[tryphon]
   }
   file { "/var/log.model/pige": 
     ensure => directory, 

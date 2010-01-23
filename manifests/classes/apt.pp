@@ -12,6 +12,7 @@ class apt {
 }
 
 define apt::key($ensure = present, $source) {
+  include wget
   case $ensure {
     present: {
       exec { "/usr/bin/wget -O - '$source' | /usr/bin/apt-key add -":
@@ -19,6 +20,7 @@ define apt::key($ensure = present, $source) {
         path   => "/bin:/usr/bin",
         before => Exec["apt-get_update"],
         notify => Exec["apt-get_update"],
+        require => Package[wget]
       }
     }
     
@@ -27,6 +29,18 @@ define apt::key($ensure = present, $source) {
         onlyif => "apt-key list | grep -Fqe '${name}'",
       }
     }
+  }
+}
+
+define apt::source($key, $key_source) {
+  apt::key { $key:
+    source => $key_source
+  }
+  # copy and launch apt-get update in the same operation
+  exec { "apt-source-copy-$name":
+    command => "cat $source_base/files/apt/$name.list > /etc/apt/sources.list.d/$name.list && apt-get update",
+    require => Apt::Key[$key],
+    creates => "/etc/apt/sources.list.d/$name.list"
   }
 }
 
@@ -39,23 +53,15 @@ class apt::local {
 }
 
 class apt::tryphon {
-  file { "/etc/apt/sources.list.d/tryphon.list":
-    source => "$source_base/files/apt/tryphon.list",
-    notify => Exec["apt-get_update"],
-    require => Apt::Key["C6ADBBD5"]
-  }
-  apt::key { "C6ADBBD5":
-    source => "http://debian.tryphon.org/release.asc"
+  apt::source { tryphon: 
+    key => "C6ADBBD5",
+    key_source => "http://debian.tryphon.org/release.asc"
   }
 }
 
 class apt::backport {
-  file { "/etc/apt/sources.list.d/lenny-backport.list":
-    content => "deb http://www.backports.org/debian lenny-backports main contrib non-free",
-    require => Apt::Key["16BA136C"],
-    notify => Exec["apt-get_update"]
-  }
-  apt::key { "16BA136C": 
-    source => "http://backports.org/debian/archive.key"
+  apt::source { "lenny-backport": 
+    key => "16BA136C",
+    key_source => "http://backports.org/debian/archive.key"
   }
 }
