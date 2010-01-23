@@ -26,6 +26,7 @@ include smtp
 include apache
 include munin::readonly
 include munin-node
+include sudo
 
 include apt::local
 include kernel
