@@ -9,6 +9,6 @@ Dir["dist/{disk,storage*}"].each_with_index do |file, index|
   disks << "-drive file=#{file},if=ide,index=#{index},media=disk"
 end
 
-qemu_command = "qemu #{disks.join(' ')} -soundhw es1370 -net nic,vlan=0 -net tap,vlan=0,ifname=tap0"
+qemu_command = "qemu -m 256m #{disks.join(' ')} -soundhw es1370 -net nic,vlan=0 -net tap,vlan=0,ifname=tap0"
 puts "Run #{qemu_command}"
 system qemu_command
