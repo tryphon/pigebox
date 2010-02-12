@@ -103,6 +103,7 @@ class pige::frontend {
     require => Package[pige]
   }
   package { pige: 
+    ensure => latest,
     require => Apt::Source[tryphon]
   }
   file { "/var/log.model/pige": 
