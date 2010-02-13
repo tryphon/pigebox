@@ -15,13 +15,21 @@ define apt::key($ensure = present, $source) {
   include wget
   case $ensure {
     present: {
-      exec { "/usr/bin/wget -O - '$source' | /usr/bin/apt-key add -":
-        unless => "apt-key list | grep -Fqe '${name}'",
-        path   => "/bin:/usr/bin",
-        before => Exec["apt-get_update"],
-        notify => Exec["apt-get_update"],
-        require => [Package[wget], Package["dhcp3-client"]]
+      file { "/tmp/${name}.key":
+        source => "$source_base/files/${name}.key"
       }
+			exec { "cat /tmp/${name}.key | /usr/bin/apt-key add -":
+        require => File["/tmp/${name}.key"],
+        before => Exec["apt-get_update"],
+        notify => Exec["apt-get_update"]
+      }
+#      exec { "/usr/bin/wget -O - '$source' | /usr/bin/apt-key add -":
+#        unless => "apt-key list | grep -Fqe '${name}'",
+#        path   => "/bin:/usr/bin",
+#        before => Exec["apt-get_update"],
+#        notify => Exec["apt-get_update"],
+#        require => [Package[wget], Class["network::base"], Class["network::ifplugd"]]
+#      }
     }
     
     absent: {
