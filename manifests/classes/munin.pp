@@ -16,7 +16,8 @@ class munin::readonly {
   file { "/var/log.model/munin": 
     ensure => directory, 
     owner => munin, 
-    group => adm
+    group => adm,
+    require => Package[munin]
   }
     
 }
