@@ -1,0 +1,2 @@
+#!/bin/sh
+/usr/bin/puppet --logdest syslog /etc/puppet/site.pp

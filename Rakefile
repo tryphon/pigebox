@@ -12,6 +12,15 @@ SystemBuilder::Task.new(:pigebox) do
   end
 end
 
+namespace :pigebox do
+  namespace :storage do
+    desc "Create storage disk"
+    task :create do
+      sh "qemu-img create -f qcow2 dist/storage 10G"
+    end
+  end
+end
+
 desc "Setup your environment to build a playbox image"
 task :setup => "pigebox:setup" do
   if ENV['WORKING_DIR']
