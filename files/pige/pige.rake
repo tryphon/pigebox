@@ -216,7 +216,7 @@ end
 namespace :pige do
 
   def pige_directory
-    ENV['PIGE_DIR'] || '/srv/pige'
+    ENV['PIGE_DIR'] || '/srv/pige/records'
   end
 
   task :encode do

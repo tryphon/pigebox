@@ -12,7 +12,7 @@
      Allow from all
   </Directory>
 	
-	Alias /raw /var/www/pige
+	Alias /records /srv/pige/records
 	<Directory /var/www/pige>
 		Options Indexes FollowSymLinks MultiViews
 		AllowOverride None

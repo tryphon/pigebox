@@ -15,6 +15,11 @@ file { ["/srv/pige/chunks", "/srv/pige/db"]:
   owner => www-data
 }
 
+file { "/srv/pige/records":
+  ensure => directory,
+  owner => pige
+}
+
 exec { "pige-create-db":
   creates => "/srv/pige/db/production.sqlite3",
   command => "cp /usr/share/pige/db/production.sqlite3 /srv/pige/db/production.sqlite3",
