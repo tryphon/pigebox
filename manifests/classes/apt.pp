@@ -20,7 +20,7 @@ define apt::key($ensure = present, $source) {
         path   => "/bin:/usr/bin",
         before => Exec["apt-get_update"],
         notify => Exec["apt-get_update"],
-        require => Package[wget]
+        require => [Package[wget], Package["dhcp3-client"]]
       }
     }
     
