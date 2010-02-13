@@ -1,0 +1,21 @@
+#!/bin/sh -x
+
+if [ "$USER" != "root" -o "$1" != "sudo" ]; then
+  exec sudo -p "Password for $0:" $0 sudo $1
+fi
+
+[ "$1" = "sudo" ] && shift
+
+ip addr flush $1
+
+bridge=br0
+local_interface=eth0
+
+ip addr flush $local_interface
+
+brctl addbr $bridge
+brctl addif $bridge $1
+brctl addif $bridge $local_interface
+
+ip link set $bridge up
+dhclient $bridge

@@ -1,0 +1,15 @@
+#!/bin/sh -x
+
+if [ "$USER" != "root" -o "$1" != "sudo" ]; then
+  exec sudo -p "Password for $0:" $0 sudo $1
+fi
+
+[ "$1" = "sudo" ] && shift
+
+bridge=br0
+local_interface=eth0
+
+ifconfig br0 down
+brctl delbr br0
+
+dhclient $local_interface
