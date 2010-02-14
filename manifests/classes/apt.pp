@@ -11,16 +11,12 @@ class apt {
 
 }
 
+# Support now only local key files
 define apt::key($ensure = present, $source) {
-  include wget
   case $ensure {
     present: {
-      exec { "/usr/bin/wget -O - '$source' | /usr/bin/apt-key add -":
-        unless => "apt-key list | grep -Fqe '${name}'",
-        path   => "/bin:/usr/bin",
-        before => Exec["apt-get_update"],
-        notify => Exec["apt-get_update"],
-        require => [Package[wget], Package["dhcp3-client"]]
+      exec { "cat '$source' | /usr/bin/apt-key add -":
+        unless => "apt-key list | grep -Fqe '${name}'"
       }
     }
     
@@ -32,9 +28,9 @@ define apt::key($ensure = present, $source) {
   }
 }
 
-define apt::source($key, $key_source) {
+define apt::source($key) {
   apt::key { $key:
-    source => $key_source
+    source => "$source_base/files/apt/$name.key"
   }
   # copy and launch apt-get update in the same operation
   exec { "apt-source-copy-$name":
@@ -54,14 +50,12 @@ class apt::local {
 
 class apt::tryphon {
   apt::source { tryphon: 
-    key => "C6ADBBD5",
-    key_source => "http://debian.tryphon.org/release.asc"
+    key => "C6ADBBD5"
   }
 }
 
 class apt::backport {
   apt::source { "lenny-backport": 
-    key => "16BA136C",
-    key_source => "http://backports.org/debian/archive.key"
+    key => "16BA136C"
   }
 }
