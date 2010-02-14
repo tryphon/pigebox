@@ -19,6 +19,7 @@ include network::ifplugd
 include network::hostname
 include syslog
 include ntp::readonly
+include dbus::readonly
 include avahi
 include mdadm
 include ssh
