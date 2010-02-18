@@ -9,6 +9,23 @@ Dir["dist/{disk,storage*}"].each_with_index do |file, index|
   disks << "-drive file=#{file},if=ide,index=#{index},media=disk"
 end
 
-qemu_command = "qemu -m 384m #{disks.join(' ')} -soundhw es1370 -net nic,vlan=0 -net tap,ifname=tap0,script=config/qemu-ifup,downscript=config/qemu-ifdown"
+class TapDevice < Struct.new(:name)
+  def exists?
+    IO.readlines('/proc/net/dev').any? { |l| l =~ /\s+#{name}/ }
+  end
+
+  def create
+    system "sudo tunctl -u #{ENV['USER']} -t #{name}" unless exists?
+    self
+  end
+  
+  def to_s
+    name
+  end
+end
+
+tap_device = TapDevice.new("tap0").create
+
+qemu_command = "qemu -m 384m #{disks.join(' ')} -soundhw es1370 -net nic,vlan=0 -net tap,ifname=#{tap_device},script=config/qemu-ifup,downscript=config/qemu-ifdown"
 puts "Run #{qemu_command}"
 system qemu_command
