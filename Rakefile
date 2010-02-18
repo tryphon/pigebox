@@ -9,6 +9,7 @@ SystemBuilder::Task.new(:pigebox) do
   SystemBuilder::DiskImage.new("dist/disk").tap do |image|
     image.boot = SystemBuilder::DebianBoot.new("build/root")
     image.boot.configurators << SystemBuilder::PuppetConfigurator.new
+		image.size = 470.megabytes
   end
 end
 
