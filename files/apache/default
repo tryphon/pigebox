@@ -12,13 +12,29 @@
      Allow from all
   </Directory>
 	
-	Alias /records /srv/pige/records
-	<Directory /var/www/pige>
+	Alias /files /srv/pige/records
+	<Directory /srv/pige/records>
 		Options Indexes FollowSymLinks MultiViews
 		AllowOverride None
 		Order allow,deny
 		Allow from all
 	</Directory>
+
+  <Location /files>
+    PassengerEnabled off
+  </Location>
+
+	Alias /munin /var/www/munin
+	<Directory /var/www/munin>
+		Options Indexes FollowSymLinks MultiViews
+		AllowOverride None
+		Order allow,deny
+		Allow from all
+	</Directory>
+
+  <Location /munin>
+    PassengerEnabled off
+  </Location>
 
 	ScriptAlias /cgi-bin/ /usr/lib/cgi-bin/
 	<Directory "/usr/lib/cgi-bin">

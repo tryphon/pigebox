@@ -19,12 +19,15 @@ class network::dhcp::readonly {
     require => Package["dhcp3-client"] 
   } 
 
-  file { "/var/etc/resolv.conf":
-    ensure => present
+  exec { "copy-resolv.conf":
+    command => "cat /etc/resolv.conf > /var/etc/resolv.conf",
+    creates => "/var/etc/resolv.conf",
+    require => File["/var/etc"]
   }
 
   file { "/etc/resolv.conf":
-    ensure => "/var/etc/resolv.conf"
+    ensure => "/var/etc/resolv.conf",
+    require => Exec["copy-resolv.conf"]
   }
 
   readonly::mount_tmpfs { "/var/lib/dhcp3": }
