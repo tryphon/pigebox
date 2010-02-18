@@ -18,13 +18,6 @@ define apt::key($ensure = present, $source) {
       exec { "cat '$source' | /usr/bin/apt-key add -":
         unless => "apt-key list | grep -Fqe '${name}'"
       }
-#      exec { "/usr/bin/wget -O - '$source' | /usr/bin/apt-key add -":
-#        unless => "apt-key list | grep -Fqe '${name}'",
-#        path   => "/bin:/usr/bin",
-#        before => Exec["apt-get_update"],
-#        notify => Exec["apt-get_update"],
-#        require => [Package[wget], Class["network::base"], Class["network::ifplugd"]]
-#      }
     }
     
     absent: {
