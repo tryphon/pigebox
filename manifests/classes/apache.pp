@@ -17,3 +17,10 @@ class apache {
   }
 
 }
+
+class apache::passenger {
+  include apt::backport
+  package { libapache2-mod-passenger: 
+    require => Apt::Source[lenny-backport]
+  }
+}

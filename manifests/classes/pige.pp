@@ -56,7 +56,7 @@ class pige::lib {
 
 class pige::cron {
 
-  package { [cron, rake]: }
+  package { rake: }
 
   file { "/usr/share/pige/bin/pige-cron":
     source => "$source_base/files/pige/pige-cron"
@@ -82,6 +82,7 @@ class pige::storage {
 
 class pige::frontend {
   include apt::tryphon
+  include apache::passenger
 
   file { "/etc/pige/database.yml":
     source => "$source_base/files/pige/database.yml",
@@ -93,7 +94,7 @@ class pige::frontend {
   }
   package { pige: 
     ensure => latest,
-    require => Apt::Source[tryphon]
+    require => [Apt::Source[tryphon], Package[libapache2-mod-passenger]]
   }
   file { "/var/log.model/pige": 
     ensure => directory, 
