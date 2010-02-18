@@ -32,6 +32,8 @@ class network::dhcp::readonly {
 
   readonly::mount_tmpfs { "/var/lib/dhcp3": }
 
+  file { "/etc/network/run": ensure => "/var/run", force => true }
+
 }
 
 class network::ifplugd {
