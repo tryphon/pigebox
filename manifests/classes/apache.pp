@@ -20,7 +20,12 @@ class apache {
 
 class apache::passenger {
   include apt::backport
+
+  apt::source::pin { [libapache2-mod-passenger, librack-ruby, "librack-ruby1.8"]:
+    source => "lenny-backports"
+  }
+
   package { libapache2-mod-passenger: 
-    require => Apt::Source[lenny-backport]
+    require => Apt::Source[lenny-backports]
   }
 }

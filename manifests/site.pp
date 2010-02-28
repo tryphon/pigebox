@@ -30,7 +30,7 @@ include munin-node
 include sudo
 include puppet
 
-include apt::local
+include apt
 include kernel
 
 include alsa::common

@@ -96,6 +96,10 @@ class pige::frontend {
     ensure => latest,
     require => [Apt::Source[tryphon], Package[libapache2-mod-passenger]]
   }
+  apt::source::pin { libtag1c2a:
+    source => "lenny-backports"
+  }
+  
   file { "/var/log.model/pige": 
     ensure => directory, 
     owner => www-data

@@ -1,16 +1,3 @@
-# Retrieved from module puppet-apt
-
-class apt {
-  exec { "apt-get_update":
-    command => "apt-get update",
-    refreshonly => true
-  }
-  Package {
-    require => Exec["apt-get_update"]
-  }
-
-}
-
 # Support now only local key files
 define apt::key($ensure = present, $source) {
   case $ensure {
@@ -40,22 +27,23 @@ define apt::source($key) {
   }
 }
 
-class apt::local {
-  include apt
-  file { "/etc/apt/preferences":
-    source => "$source_base/files/apt/preferences",
-    notify => Exec["apt-get_update"]
+define apt::source::pin($source) {
+  apt::preferences { $name:
+    package => $name, 
+    pin => "release a=$source",
+    priority => 999,
+    require => Apt::Source[$source]
   }
 }
 
-class apt::tryphon {
-  apt::source { tryphon: 
-    key => "C6ADBBD5"
-  }
-}
-
-class apt::backport {
-  apt::source { "lenny-backport": 
-    key => "16BA136C"
+define apt::preferences($ensure="present", $package, $pin, $priority) {
+  concatenated_file_part { $name:
+    ensure  => $ensure,
+    dir    => "/etc/apt/preferences.d",
+    content => "# file managed by puppet
+Package: $package
+Pin: $pin
+Pin-Priority: $priority
+"
   }
 }
