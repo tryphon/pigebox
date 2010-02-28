@@ -31,7 +31,7 @@ include sudo
 include puppet
 
 include apt
-include kernel
+include linux::kernel-2-6-30
 
 include alsa::common
 include pige
