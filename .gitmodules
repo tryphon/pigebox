@@ -1,0 +1,3 @@
+[submodule "modules/box"]
+	path = modules/box
+	url = ../puppet-box
