@@ -13,6 +13,8 @@ iface eth0 inet dhcp
 "
 }
 
+include readonly::initvarlog
+
 include network::base
 include network::dhcp::readonly
 include network::ifplugd
