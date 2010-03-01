@@ -4,21 +4,15 @@ import "classes/*.pp"
 
 $source_base="/tmp/puppet"
 
-file { "/etc/network/interfaces": 
-   content => "auto lo
-iface lo inet loopback
+# used as default hostname, etc
+$box_name="pigebox"
 
-auto eth0
-iface eth0 inet dhcp
-"
-}
-
+# TODO replace by puppet boot
 include readonly::initvarlog
 
-include network::base
-include network::dhcp::readonly
-include network::ifplugd
-include network::hostname
+include network
+include network::interfaces::deprecated
+
 include syslog
 include ntp::readonly
 include dbus::readonly
