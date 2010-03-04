@@ -13,6 +13,8 @@ include readonly::initvarlog
 include network
 include network::interfaces::deprecated
 
+include serial::console
+
 include syslog
 include ntp::readonly
 include dbus::readonly

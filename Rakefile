@@ -5,6 +5,8 @@ require 'system_builder/task'
 
 load './local.rb' if File.exists?("./local.rb")
 
+Dir['tasks/**/*.rake'].each { |t| load t }
+
 SystemBuilder::Task.new(:pigebox) do
   SystemBuilder::DiskImage.new("dist/disk").tap do |image|
     image.boot = SystemBuilder::DebianBoot.new("build/root")

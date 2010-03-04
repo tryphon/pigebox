@@ -1,0 +1,2 @@
+default: features
+wip: features --tags @wip
