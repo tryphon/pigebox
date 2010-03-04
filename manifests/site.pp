@@ -1,6 +1,8 @@
 import "defaults"
-import "defines/*.pp"
+#import "defines/*.pp"
 import "classes/*.pp"
+
+import "box"
 
 $source_base="/tmp/puppet"
 
