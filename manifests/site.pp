@@ -25,6 +25,7 @@ include mdadm
 include ssh
 include smtp
 include apache
+include apache::dnssd
 include munin::readonly
 include munin-node
 include sudo

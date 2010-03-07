@@ -1,6 +1,8 @@
 <VirtualHost *:80>
 	ServerAdmin webmaster@localhost
 
+  DNSSDServiceName "Tryphon PigeBox"
+
   DocumentRoot /usr/share/pige/public
   PassengerDefaultUser www-data
   PassengerMaxPoolSize 3
