@@ -8,10 +8,10 @@ load './local.rb' if File.exists?("./local.rb")
 Dir['tasks/**/*.rake'].each { |t| load t }
 
 SystemBuilder::Task.new(:pigebox) do
-  SystemBuilder::DiskImage.new("dist/disk").tap do |image|
+  SystemBuilder::DiskSquashfsImage.new("dist/disk").tap do |image|
     image.boot = SystemBuilder::DebianBoot.new("build/root")
     image.boot.configurators << SystemBuilder::PuppetConfigurator.new
-		image.size = 470.megabytes
+		image.size = 200.megabytes
   end
 end
 
