@@ -26,8 +26,10 @@ include ssh
 include smtp
 include apache
 include apache::dnssd
+
 include munin::readonly
-include munin-node
+include munin-node::local
+
 include sudo
 include puppet
 
