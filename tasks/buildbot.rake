@@ -5,4 +5,4 @@ namespace :buildbot do
   end
 end
 
-task :buildbot => [:clean, "pigebox:dist", "buildbot:dist"]
+task :buildbot => [:clean, "pigebox:dist", "buildbot:dist", :clean]
