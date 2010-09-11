@@ -16,8 +16,14 @@ class puppet {
     mode => 755
   }
 
+  file { "/boot/config.pp":
+    ensure => present
+  }
+
   file { "/etc/cron.d/puppet":
     source => "$source_base/files/puppet/puppet.cron.d",
     require => Package[cron]
   }
+
+  readonly::mount_tmpfs { "/var/lib/puppet": }
 }
