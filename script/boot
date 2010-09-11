@@ -26,6 +26,7 @@ end
 
 tap_device = TapDevice.new("tap0").create
 
-qemu_command = "qemu -m 384m #{disks.join(' ')} -soundhw es1370 -net nic,vlan=0 -net tap,ifname=#{tap_device},script=config/qemu-ifup,downscript=config/qemu-ifdown"
+ENV['QEMU_AUDIO_DRV']='oss'
+qemu_command = "qemu -m 384m -enable-kvm #{disks.join(' ')} -soundhw ac97 -net nic,vlan=0 -net tap,ifname=#{tap_device},script=config/qemu-ifup,downscript=config/qemu-ifdown"
 puts "Run #{qemu_command}"
 system qemu_command
