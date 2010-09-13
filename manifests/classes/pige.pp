@@ -82,6 +82,9 @@ class pige::storage {
 
 class pige::frontend {
   include apt::tryphon
+
+  include apache
+  include apache::dnssd
   include apache::passenger
 
   file { "/etc/pige/database.yml":
