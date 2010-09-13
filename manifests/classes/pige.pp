@@ -18,7 +18,7 @@ class pige {
 
   include sox
   include pige::alsabackup
-  include pige::cron
+  include pige::crond
   include pige::storage
   include pige::lib
   include pige::frontend
@@ -54,8 +54,8 @@ class pige::lib {
   }
 }
 
-class pige::cron {
-
+class pige::crond {
+  include cron # ::cron not supported by this puppet version
   package { rake: }
 
   file { "/usr/share/pige/bin/pige-cron":
@@ -66,7 +66,6 @@ class pige::cron {
     source => "$source_base/files/pige/pige.cron.d",
     require => Package[cron]
   }
-
 }
 
 class pige::storage {
