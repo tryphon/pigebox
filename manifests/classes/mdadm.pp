@@ -1,3 +1,0 @@
-class mdadm {
-  package { mdadm: }
-}

@@ -1,4 +1,0 @@
-Defaults	env_reset
-
-root	ALL=(ALL) ALL
-pige	ALL=(www-data) NOPASSWD: /usr/share/pige/bin/pige
