@@ -13,20 +13,20 @@ namespace :pigebox do
       rm Dir["dist/storage*"]
     end
 
-    def create_disk(name, size = "10G")
-      sh "qemu-img create -f qcow2 dist/#{name} 10G"
+    def create_disk(name, size)
+      sh "qemu-img create -f qcow2 dist/#{name} #{size}"
     end
 
     desc "Create storage disk"
-    task :create, :disk_count do |t, args|
-      args.with_defaults(:disk_count => 1)
+    task :create, [:disk_count, :size] do |t, args|
+      args.with_defaults(:disk_count => 1, :size => "10G")
 
       disk_count = args.disk_count.to_i
 
       if disk_count.to_i > 1
-        disk_count.times { |n| create_disk "storage#{n+1}" }
+        disk_count.times { |n| create_disk "storage#{n+1}", args.size }
       else
-        create_disk "storage"
+        create_disk "storage", args.size
       end
     end
   end
