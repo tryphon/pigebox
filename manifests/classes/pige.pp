@@ -28,6 +28,7 @@ class pige::alsabackup {
   include apt::tryphon
 
   package { alsa-backup: 
+    ensure => "0.10-1lenny1",
     require => Apt::Source[tryphon]
   }
 
