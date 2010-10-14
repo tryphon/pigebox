@@ -44,6 +44,11 @@ class pige::alsabackup {
   file { "/etc/pige/alsa.backup.config":
     source => "$source_base/files/pige/alsa.backup.config"
   }
+
+  sudo::line { "pige":
+    line => "pige		ALL=(www-data) NOPASSWD: /usr/share/pige/bin/pige"
+  }
+
 }
 
 class pige::lib {
