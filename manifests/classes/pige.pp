@@ -28,6 +28,7 @@ class pige::alsabackup {
   include apt::tryphon
 
   package { alsa-backup: 
+    ensure => "0.10-1lenny1",
     require => Apt::Source[tryphon]
   }
 
@@ -95,7 +96,7 @@ class pige::frontend {
     require => Package[pige]
   }
   package { pige: 
-    ensure => latest,
+    ensure => "0.4-1lenny1",
     require => [Apt::Source[tryphon], Package[libapache2-mod-passenger]]
   }
   apt::source::pin { libtag1c2a:
