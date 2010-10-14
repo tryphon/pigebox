@@ -14,6 +14,9 @@ config.logger = SyslogLogger.new
 config.action_controller.consider_all_requests_local = false
 config.action_controller.perform_caching             = true
 
+#Set default timezone to the cute city of Paris
+config.time_zone = 'Paris'
+
 # Use a different cache store in production
 # config.cache_store = :mem_cache_store
 
