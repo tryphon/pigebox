@@ -49,6 +49,14 @@ exec { "pige-create-db":
   tag => boot
 }
 
+exec { "pige-migrate-db":
+  command => "./script/migrate",
+  cwd => "/usr/share/pige",
+  user => www-data,
+  require => Exec["pige-create-db"],
+  tag => boot
+}  
+
 file { "/srv/pige/db/production.sqlite3":
   owner => www-data,
   require => Exec["pige-create-db"],

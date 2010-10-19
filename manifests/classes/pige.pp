@@ -101,7 +101,7 @@ class pige::frontend {
     require => Package[pige]
   }
   package { pige: 
-    ensure => "0.5-1lenny1",
+    ensure => "0.5-2lenny1",
     require => [Apt::Source[tryphon], Package[libapache2-mod-passenger]]
   }
   apt::source::pin { libtag1c2a:
