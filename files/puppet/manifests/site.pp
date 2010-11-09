@@ -9,6 +9,7 @@ File {
 }
 
 import "config.pp"
+import "classes/*.pp"
 
 file { "/var/etc/network":
   ensure => directory,
