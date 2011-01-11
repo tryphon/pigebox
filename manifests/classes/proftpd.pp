@@ -4,7 +4,8 @@ class proftpd {
   }
 
   file { "/etc/proftpd/proftpd.conf":
-    source => "puppet:///files/proftpd/proftpd.conf"
+    source => "puppet:///files/proftpd/proftpd.conf",
+    require => Package[proftpd]
   }
 
   user { ftp:
