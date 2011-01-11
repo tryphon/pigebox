@@ -51,7 +51,7 @@ exec { "pige-create-db":
 }
 
 exec { "pige-migrate-db":
-  command => "./script/migrate",
+  command => "/usr/share/pige/script/migrate",
   cwd => "/usr/share/pige",
   user => www-data,
   require => Exec["pige-create-db"],
