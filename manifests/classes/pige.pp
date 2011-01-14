@@ -102,7 +102,7 @@ class pige::frontend {
   }
   package { pige: 
     ensure => "0.10-1lenny1",
-    require => [Apt::Source[tryphon], Package[libapache2-mod-passenger]]
+    require => [Apt::Source[tryphon], Package[libapache2-mod-passenger], Package[sox]]
   }
   apt::source::pin { libtag1c2a:
     source => "lenny-backports"
