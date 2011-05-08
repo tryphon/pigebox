@@ -150,7 +150,7 @@ class Cleaner
   end
 
   def minimum_free_space
-    @minimum_free_space ||= [1.gigabytes, total_space * 0.1].min
+    @minimum_free_space ||= [5.gigabytes, total_space * 0.1].min
   end
 
 end
