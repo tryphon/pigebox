@@ -1,4 +1,4 @@
 source :gemcutter
 
 gem "rake"
-gem "system-builder", '>= 0.0.18'
+gem "system-builder", '>= 0.0.23'
