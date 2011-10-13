@@ -11,22 +11,6 @@ File {
 import "config.pp"
 import "classes/*.pp"
 
-file { "/var/etc/network":
-  ensure => directory,
-  tag => boot
-}
-
-file { "/var/etc/network/interfaces":
-  content => template("/etc/puppet/templates/interfaces"),
-  notify => Exec["restart-networking"],
-  tag => boot
-}
-
-exec { "restart-networking": 
-  command => "/sbin/ifdown eth0 && /sbin/ifup eth0",
-  refreshonly => true
-}
-
 # Directories used by Pige
 
 file { ["/srv/pige/chunks", "/srv/pige/db"]:
@@ -73,12 +57,6 @@ exec { "storage-mount":
   command => "mount /srv/pige",
   unless => "mount | grep /srv/pige",
   require => Exec["storage-init"],
-  tag => boot
-}
-
-exec { "copy-var-model":
-  creates => "/var/log/dmesg",
-  command => "cp -a /var/log.model/* /var/log/",
   tag => boot
 }
 
