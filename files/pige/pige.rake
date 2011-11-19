@@ -84,6 +84,7 @@ class FileGroup
 
   def delete(file)
     PigeCron.logger.info "delete #{file}"
+    system "/usr/share/pige/bin/pige remove #{file}"
     File.delete(file)
   end
 
@@ -205,7 +206,7 @@ class DirectoryEncoder
 
       if File.exists? ogg_file
         File.chmod 0644, ogg_file
-        system "sudo -u www-data /usr/share/pige/bin/pige index #{ogg_file}"
+        system "/usr/share/pige/bin/pige index #{ogg_file}"
       else
         PigeCron.logger.info "encoding failed: #{sox_output}" unless sox_output.empty?
       end
