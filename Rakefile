@@ -23,7 +23,7 @@ namespace :pigebox do
 
     desc "Create storage disk"
     task :create, [:disk_count, :size] do |t, args|
-      args.with_defaults(:disk_count => 1, :size => "10G")
+      args.with_defaults(:disk_count => 1, :size => ENV.fetch("STORAGE_SIZE", "10G"))
 
       disk_count = args.disk_count.to_i
 
