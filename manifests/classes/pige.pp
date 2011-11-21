@@ -19,7 +19,6 @@ class pige {
   include sox
   include pige::alsabackup
   include pige::crond
-  include pige::storage
   include pige::lib
   include pige::frontend
 }
@@ -71,17 +70,6 @@ class pige::crond {
   file { "/etc/cron.d/pige":
     source => "$source_base/files/pige/pige.cron.d",
     require => Package[cron]
-  }
-}
-
-class pige::storage {
-  file { "/srv/pige":
-    ensure => directory
-  }
-
-  line { "fstab-pige":
-    file => "/etc/fstab",
-    line => "LABEL=pige /srv/pige ext3 defaults 0 0"
   }
 }
 
