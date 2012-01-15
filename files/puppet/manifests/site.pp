@@ -17,14 +17,14 @@ file { ["/srv/pige/chunks", "/srv/pige/db"]:
   ensure => directory,
   owner => www-data,
   tag => boot,
-  require => Exec["storage-mount"]
+  require => Exec["storage-mount-pige"]
 }
 
 file { "/srv/pige/records":
   ensure => directory,
   owner => pige,
   tag => boot,
-  require => Exec["storage-mount"]
+  require => Exec["storage-mount-pige"]
 }
 
 exec { "pige-create-db":
@@ -45,18 +45,6 @@ exec { "pige-migrate-db":
 file { "/srv/pige/db/production.sqlite3":
   owner => www-data,
   require => Exec["pige-create-db"],
-  tag => boot
-}
-
-exec { "storage-init":
-  command => "/usr/local/sbin/storage init --label=pige > /tmp/storage.log",
-  tag => boot
-}
-
-exec { "storage-mount":
-  command => "mount /srv/pige",
-  unless => "mount | grep /srv/pige",
-  require => Exec["storage-init"],
   tag => boot
 }
 
