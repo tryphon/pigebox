@@ -64,7 +64,13 @@ class pige::crond {
   package { rake: }
 
   file { "/usr/share/pige/bin/pige-cron":
-    source => "$source_base/files/pige/pige-cron"
+    source => "$source_base/files/pige/pige-cron",
+    mode => 755
+  }
+
+  file { "/usr/local/sbin/pige-cron-check-delayed-jobs":
+    source => "$source_base/files/pige/pige-cron-check-delayed-jobs",
+    mode => 755
   }
 
   file { "/etc/cron.d/pige":
@@ -89,7 +95,7 @@ class pige::frontend {
     require => Package[pige]
   }
   package { pige: 
-    ensure => "0.14-1lenny1",
+    ensure => "0.15-1lenny1",
     require => [Apt::Source[tryphon], Package[libapache2-mod-passenger], Package[sox], Package[curl]]
   }
   apt::source::pin { libtag1c2a:
