@@ -8,7 +8,9 @@ SystemBuilder::BoxTasks.new(:pigebox) do |box|
     image.size = 500.megabytes
   end
 end
-task :buildbot => "pigebox:buildbot"
+
+desc "Run continuous integration tasks"
+task :ci => "pigebox:buildbot"
 
 namespace :pigebox do
   namespace :storage do
@@ -18,12 +20,12 @@ namespace :pigebox do
     end
 
     def create_disk(name, size)
-      sh "qemu-img create -f qcow2 dist/#{name} #{size}"
+      sh "qemu-img create -f raw dist/#{name} #{size}"
     end
 
     desc "Create storage disk"
     task :create, [:disk_count, :size] do |t, args|
-      args.with_defaults(:disk_count => 1, :size => ENV.fetch("STORAGE_SIZE", "10G"))
+      args.with_defaults(:disk_count => 1, :size => ENV.fetch("STORAGE_SIZE", "5G"))
 
       disk_count = args.disk_count.to_i
 
