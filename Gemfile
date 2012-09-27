@@ -1,4 +1,4 @@
 source :gemcutter
 
 gem "rake"
-gem "system-builder", '>= 0.0.23'
+gem "system-builder", :git => "git://projects.tryphon.eu/system-builder"
