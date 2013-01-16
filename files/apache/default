@@ -48,6 +48,9 @@
 
   LogLevel warn
 
+  XSendFile On
+  XSendFilePath /srv/pige/chunks
+
   # Use only syslog
   ErrorLog syslog
   CustomLog "|/usr/bin/logger -p local1.info -t apache2/access" combined
