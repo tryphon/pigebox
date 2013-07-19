@@ -21,6 +21,9 @@ class pige {
   include pige::crond
   include pige::lib
   include pige::frontend
+
+  include pige::steto
+  include records
 }
 
 class pige::alsabackup {
@@ -43,11 +46,6 @@ class pige::alsabackup {
   file { "/etc/pige/alsa.backup.config":
     source => "$source_base/files/pige/alsa.backup.config"
   }
-
-  sudo::line { "pige":
-    line => "pige		ALL=(www-data) NOPASSWD: /usr/share/pige/bin/pige"
-  }
-
 }
 
 class pige::lib {
@@ -85,6 +83,9 @@ class pige::frontend {
   include apache
   include apache::dnssd
   include apache::passenger
+  include apache::xsendfile
+
+  include ruby::bundler
 
   file { "/etc/pige/database.yml":
     source => "$source_base/files/pige/database.yml",
@@ -94,17 +95,24 @@ class pige::frontend {
     source => "$source_base/files/pige/production.rb",
     require => Package[pige]
   }
-  package { pige: 
-    ensure => "0.15-1lenny1",
-    require => [Apt::Source[tryphon], Package[libapache2-mod-passenger], Package[sox], Package[curl]]
+  package { pigecontrol: 
+    ensure => "0.16-1",
+    require => [Apt::Source[tryphon], Package[libapache2-mod-passenger], Package[sox]],
+    alias => pige
   }
   apt::source::pin { libtag1c2a:
     source => "lenny-backports"
   }
-  package { curl: }
   
   file { "/var/log.model/pige": 
     ensure => directory, 
     owner => www-data
   }
+}
+
+class pige::steto {
+  steto::conf { pige: 
+    source => "puppet:///files/pige/steto.rb"
+  }
+  include sox::ruby
 }
