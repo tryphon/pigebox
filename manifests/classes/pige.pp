@@ -1,8 +1,8 @@
 class pige {
   file { "/etc/pige": ensure => directory }
   file { [
-    "/usr/share/pige", 
-    "/usr/share/pige/tasks", 
+    "/usr/share/pige",
+    "/usr/share/pige/tasks",
     "/usr/share/pige/bin"
     ]:
     ensure => directory
@@ -29,16 +29,16 @@ class pige {
 class pige::alsabackup {
   include apt::tryphon
 
-  package { alsa-backup: 
-    ensure => "0.11-1lenny1",
+  package { alsa-backup:
+    ensure => "0.12-1",
     require => Apt::Source[tryphon]
   }
 
   # TODO fix alsa-backup libraries names
-  file { 
+  file {
     "/usr/lib/libasound.so": ensure => "/usr/lib/libasound.so.2.0.0";
     "/usr/lib/libsndfile.so": ensure => "/usr/lib/libsndfile.so.1.0.17"
-  } 
+  }
 
   file { "/etc/default/alsa-backup":
     source => "$source_base/files/pige/alsa.backup.default"
@@ -95,23 +95,20 @@ class pige::frontend {
     source => "$source_base/files/pige/production.rb",
     require => Package[pige]
   }
-  package { pigecontrol: 
+  package { pigecontrol:
     ensure => "0.16-1",
     require => [Apt::Source[tryphon], Package[libapache2-mod-passenger], Package[sox]],
     alias => pige
   }
-  apt::source::pin { libtag1c2a:
-    source => "lenny-backports"
-  }
-  
-  file { "/var/log.model/pige": 
-    ensure => directory, 
+
+  file { "/var/log.model/pige":
+    ensure => directory,
     owner => www-data
   }
 }
 
 class pige::steto {
-  steto::conf { pige: 
+  steto::conf { pige:
     source => "puppet:///files/pige/steto.rb"
   }
   include sox::ruby
