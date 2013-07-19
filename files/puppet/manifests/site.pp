@@ -1,10 +1,10 @@
 # Defaults
 
-Exec { 
-  path => "/usr/bin:/usr/sbin/:/bin:/sbin:/usr/local/bin:/usr/local/sbin" 
+Exec {
+  path => "/usr/bin:/usr/sbin/:/bin:/sbin:/usr/local/bin:/usr/local/sbin"
 }
 
-File { 
+File {
   checksum => md5, owner => root, group => root
 }
 
@@ -40,26 +40,10 @@ exec { "pige-migrate-db":
   user => www-data,
   require => Exec["pige-create-db"],
   tag => boot
-}  
+}
 
 file { "/srv/pige/db/production.sqlite3":
   owner => www-data,
   require => Exec["pige-create-db"],
   tag => boot
-}
-
-file { "/var/etc/fm/":
-  ensure => directory,
-  tag => boot
-}
-
-file { "/var/etc/fm/fm.conf":
-  content => template("/etc/puppet/templates/fm.conf"),
-  notify => Service[fm],
-  tag => boot
-}
-
-service { fm:
-  ensure => running,
-  hasrestart => true
 }
