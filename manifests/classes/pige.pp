@@ -37,7 +37,7 @@ class pige::alsabackup {
   # TODO fix alsa-backup libraries names
   file {
     "/usr/lib/libasound.so": ensure => "/usr/lib/libasound.so.2.0.0";
-    "/usr/lib/libsndfile.so": ensure => "/usr/lib/libsndfile.so.1.0.17"
+    "/usr/lib/libsndfile.so": ensure => "/usr/lib/libsndfile.so.1.0.21"
   }
 
   file { "/etc/default/alsa-backup":
@@ -89,16 +89,15 @@ class pige::frontend {
 
   file { "/etc/pige/database.yml":
     source => "$source_base/files/pige/database.yml",
-    require => Package[pige]
+    require => Package[pigecontrol]
   }
   file { "/etc/pige/production.rb":
     source => "$source_base/files/pige/production.rb",
-    require => Package[pige]
+    require => Package[pigecontrol]
   }
   package { pigecontrol:
     ensure => "0.16-1",
     require => [Apt::Source[tryphon], Package[libapache2-mod-passenger], Package[sox]],
-    alias => pige
   }
 
   file { "/var/log.model/pige":
@@ -112,4 +111,10 @@ class pige::steto {
     source => "puppet:///files/pige/steto.rb"
   }
   include sox::ruby
+  include pige::gem
+}
+
+class pige::gem {
+  ruby::gem { pige: ensure => "0.0.2" }
+  package { [libtagc0-dev, libtag1-dev]: }
 }
