@@ -27,7 +27,7 @@ class pige {
 }
 
 class pige::go-broadcast {
-  include go-broadcast
+  include ::go-broadcast
 
   file { "/etc/default/go-broadcast":
     source => "puppet:///files/pige/go-broadcast.default"
