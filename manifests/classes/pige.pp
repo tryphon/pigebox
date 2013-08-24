@@ -17,13 +17,21 @@ class pige {
   }
 
   include sox
-  include pige::alsabackup
+  include pige::go-broadcast
   include pige::crond
   include pige::lib
   include pige::frontend
 
   include pige::steto
   include records
+}
+
+class pige::go-broadcast {
+  include go-broadcast
+
+  file { "/etc/default/go-broadcast":
+    source => "puppet:///files/pige/go-broadcast.default"
+  }
 }
 
 class pige::alsabackup {
