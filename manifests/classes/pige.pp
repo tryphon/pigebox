@@ -1,4 +1,7 @@
 class pige {
+  # from Puppet-Box
+  include pige::base
+
   file { "/etc/pige": ensure => directory }
   file { [
     "/usr/share/pige",
@@ -12,33 +15,13 @@ class pige {
     source => "$source_base/files/pige/pige.rake"
   }
 
-  user { pige:
-    groups => [audio]
-  }
-
-  file { "/etc/puppet/manifests/classes/pige.pp":
-    source => "puppet:///files/pige/manifest.pp"
-  }
-
   include sox
-  include pige::go-broadcast
   include pige::crond
   include pige::lib
   include pige::frontend
 
   include pige::steto
   include records
-}
-
-class pige::go-broadcast {
-  include ::go-broadcast
-
-  file { "/etc/puppet/templates/go-broadcast.default":
-    source => "puppet:///files/pige/go-broadcast.default.erb"
-  }
-  file { "/etc/default/go-broadcast":
-    ensure => "/var/etc/default/go-broadcast"
-  }
 }
 
 class pige::alsabackup {

@@ -20,13 +20,6 @@ file { ["/srv/pige/chunks", "/srv/pige/db"]:
   require => Exec["storage-mount-pige"]
 }
 
-file { "/srv/pige/records":
-  ensure => directory,
-  owner => pige,
-  tag => boot,
-  require => Exec["storage-mount-pige"]
-}
-
 exec { "pige-create-db":
   creates => "/srv/pige/db/production.sqlite3",
   command => "cp /usr/share/pige/db/production.sqlite3 /srv/pige/db/production.sqlite3",
