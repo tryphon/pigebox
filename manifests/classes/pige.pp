@@ -16,6 +16,10 @@ class pige {
     groups => [audio]
   }
 
+  file { "/etc/puppet/manifests/classes/pige.pp":
+    source => "puppet:///files/pige/manifest.pp"
+  }
+
   include sox
   include pige::go-broadcast
   include pige::crond
@@ -29,8 +33,11 @@ class pige {
 class pige::go-broadcast {
   include ::go-broadcast
 
+  file { "/etc/puppet/templates/go-broadcast.default":
+    source => "puppet:///files/pige/go-broadcast.default.erb"
+  }
   file { "/etc/default/go-broadcast":
-    source => "puppet:///files/pige/go-broadcast.default"
+    ensure => "/var/etc/default/go-broadcast"
   }
 }
 

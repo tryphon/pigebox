@@ -1,2 +1,0 @@
-DAEMON_OPTS="backup /srv/pige/records/"
-DAEMON_USER="pige"
