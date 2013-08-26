@@ -8,7 +8,7 @@ Steto.config do
     @pige_index ||= Pige::Record::Index.new
   end
 
-  process "alsa-backup"
+  process "go-broadcast"
 
   def current_record_filename
     # FIXME doesn't see restart file like '09h01m38.wav'
