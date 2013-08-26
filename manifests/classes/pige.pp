@@ -111,11 +111,3 @@ class pige::steto {
   include sox::ruby
   include pige::gem
 }
-
-class pige::gem {
-  ruby::gem { pige:
-    ensure => "0.0.2",
-    require => Package[libtagc0-dev, libtag1-dev]
-  }
-  package { [libtagc0-dev, libtag1-dev]: }
-}
