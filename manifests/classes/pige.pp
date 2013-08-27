@@ -94,7 +94,7 @@ class pige::frontend {
     require => Package[pigecontrol]
   }
   package { pigecontrol:
-    ensure => "0.17-1",
+    ensure => "0.17-2",
     require => [Apt::Source[tryphon], Package[libapache2-mod-passenger], Package[sox]],
   }
 
