@@ -103,11 +103,3 @@ class pige::frontend {
     owner => www-data
   }
 }
-
-class pige::steto {
-  steto::conf { pige:
-    source => "puppet:///files/pige/steto.rb"
-  }
-  include sox::ruby
-  include pige::gem
-}
