@@ -27,16 +27,5 @@ function check_daemon() {
 
 if ! check_daemon; then
     echo "No daemon found, restart it" | logger -i -t "check-delayed-jobs" 
-    /etc/init.d/pige restart
+    /etc/init.d/pigecontrol restart
 fi
-
-# start-stop-daemon --status not supported by lenny version
-
-# PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
-
-# if ! start-stop-daemon --status --pidfile $pid_file --name $daemon; then
-#     echo "No daemon found, restart it" | logger -i -t "check-delayed-jobs" 
-#     /etc/init.d/pige restart
-# fi
-
-
