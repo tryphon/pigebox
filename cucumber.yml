@@ -1,2 +1,9 @@
-default: features
-wip: features --tags @wip
+<%
+default_directories = "features modules/box/features"
+rerun = File.file?('rerun.txt') ? IO.read('rerun.txt') : ""
+rerun_opts = rerun.to_s.strip.empty? ? "--format #{ENV['CUCUMBER_FORMAT'] || 'progress'} #{default_directories}" : "--format #{ENV['CUCUMBER_FORMAT'] || 'pretty'} #{rerun}"
+std_opts = "--format #{ENV['CUCUMBER_FORMAT'] || 'pretty'} --strict --tags ~@wip"
+%>
+default: <%= std_opts %> <%= default_directories %>
+wip: --tags @wip:3 --wip <%= default_directories %>
+rerun: <%= rerun_opts %> --format rerun --out rerun.txt --strict --tags ~@wip

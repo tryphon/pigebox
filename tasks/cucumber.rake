@@ -21,6 +21,11 @@ begin
       t.profile = 'wip'
     end
 
+    Cucumber::Rake::Task.new(:rerun, 'Record failing features and run only them if any exist') do |t|
+      t.fork = true # You may get faster startup if you set this to false
+      t.profile = 'rerun'
+    end
+
     desc 'Run all features'
     task :all => [:ok, :wip]
   end
