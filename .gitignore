@@ -4,3 +4,6 @@ build
 dist
 local.rb
 puppet.log
+log/*
+tmp/*
+.bundle/*
