@@ -22,14 +22,14 @@ file { ["/srv/pige/chunks", "/srv/pige/db"]:
 
 exec { "pige-create-db":
   creates => "/srv/pige/db/production.sqlite3",
-  command => "cp /usr/share/pige/db/production.sqlite3 /srv/pige/db/production.sqlite3",
+  command => "cp /usr/share/pigecontrol/db/production.sqlite3 /srv/pige/db/production.sqlite3",
   require => File["/srv/pige/db"],
   tag => boot
 }
 
 exec { "pige-migrate-db":
-  command => "/usr/share/pige/script/migrate",
-  cwd => "/usr/share/pige",
+  command => "/usr/share/pigecontrol/script/migrate",
+  cwd => "/usr/share/pigecontrol",
   user => www-data,
   require => Exec["pige-create-db"],
   tag => boot

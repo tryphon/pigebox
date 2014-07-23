@@ -1,2 +1,2 @@
 #!/bin/sh
-exec rake --silent --rakefile /usr/share/pige/tasks/pige.rake pige:${1:-cron} 2>&1 | logger -t pige-cron -i
+exec rake --silent --rakefile /usr/share/pigecontrol/tasks/pige.rake pige:${1:-cron} 2>&1 | logger -t pige-cron -i

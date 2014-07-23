@@ -3,17 +3,17 @@
 
   DNSSDServiceName "Tryphon PigeBox"
 
-  DocumentRoot /usr/share/pige/public
+  DocumentRoot /usr/share/pigecontrol/public
   PassengerDefaultUser www-data
   PassengerMaxPoolSize 3
   PassengerMaxRequests 10000
   PassengerLogLevel 3
-  <Directory /usr/share/pige/public>
+  <Directory /usr/share/pigecontrol/public>
      AllowOverride None
      Order allow,deny
      Allow from all
   </Directory>
-	
+
 	Alias /files /srv/pige/records
 	<Directory /srv/pige/records>
 		Options Indexes FollowSymLinks MultiViews
