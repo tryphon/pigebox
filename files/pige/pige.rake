@@ -1,14 +1,13 @@
 require 'rake/tasklib'
 require 'find'
 require 'tempfile'
-
-$: << "#{File.dirname(__FILE__)}/../lib"
-require 'syslog_logger'
+require 'fileutils'
+require 'syslog/logger'
 
 module PigeCron
-  @logger = 
+  @logger =
     unless ENV['DEBUG']
-      SyslogLogger.new('pige-cron').tap do |logger|
+      Syslog::Logger.new('pige-cron').tap do |logger|
         logger.level = Logger::INFO
       end
     else
@@ -60,7 +59,7 @@ class FileGroup
       @empty_files << file
     end
   end
-  
+
   def empty_file?(file)
     File.size(file) <= 44
   end
@@ -85,7 +84,7 @@ class FileGroup
   def delete(file)
     PigeCron.logger.info "delete #{file}"
     File.delete(file)
-    
+
     "#{file}.stats".tap do |stats_file|
       File.delete(stats_file) if File.exists? stats_file
     end
@@ -123,13 +122,13 @@ class Cleaner
       PigeCron.logger.warn "Can't find the directory to clean: #{directory}"
       return
     end
-      
+
     PigeCron.logger.info "free space: #{free_space.in_gigabytes} gigabytes"
     PigeCron.logger.debug { "minimum free space: #{minimum_free_space.in_gigabytes}" }
 
     if (missing_free_space = minimum_free_space - free_space) > 0
       maximum_used_space = (@ogg_group.total_size + @wav_group.total_size) - missing_free_space
-      
+
       if @ogg_group.reduce(maximum_used_space * 0.9)
         @wav_group.reduce(maximum_used_space * 0.1)
       else
@@ -170,27 +169,27 @@ class DirectoryEncoder
   def with_lock
     lock_file = "/tmp/pige:encode.lock"
     unless File.exists?(lock_file)
-      touch lock_file
+      FileUtils.touch lock_file
 
       begin
         yield
       ensure
-        rm lock_file
+        FileUtils.rm lock_file
       end
     else
       PigeCron.logger.info "skip encode (lock file found)"
     end
   end
-      
+
   def encode
-    with_lock do 
+    with_lock do
       now = Time.now
-      
+
       FileList["#{directory}/**/*.wav"].each do |wav_file|
         next if File.mtime(wav_file) > now - 30
-        
+
         ogg_file = wav_file.gsub(/\.wav$/,".ogg")
-        unless uptodate?(ogg_file, wav_file) 
+        unless FileUtils.uptodate?(ogg_file, [wav_file])
           encode_file(wav_file, ogg_file)
         end
       end

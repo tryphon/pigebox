@@ -1,2 +1,6 @@
 #!/bin/sh
-exec rake --silent --rakefile /usr/share/pigecontrol/tasks/pige.rake pige:${1:-cron} 2>&1 | logger -t pige-cron -i
+
+export PATH=/usr/local/bin:$PATH
+
+cd /usr/share/pigecontrol
+bundle exec rake --silent --rakefile tasks/pige.rake pige:${1:-cron} 2>&1 | logger -t pige-cron -i
