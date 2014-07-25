@@ -7,3 +7,4 @@ puppet.log
 log/*
 tmp/*
 .bundle/*
+/.ruby-version
