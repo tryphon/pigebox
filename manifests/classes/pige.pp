@@ -17,20 +17,11 @@ class pige {
 
   include sox
   include pige::crond
-  include pige::lib
   include pige::frontend
+  include pige::uploads
 
   include pige::steto
   include records
-}
-
-class pige::lib {
-  # FIXME manually install syslog_logger
-  # TODO use/create a syslog_logger debian package
-  file { "/usr/share/pigecontrol/lib/syslog_logger.rb":
-    source => "$source_base/files/pige/syslog_logger.rb";
-    "/usr/share/pigecontrol/lib" : ensure => directory
-  }
 }
 
 class pige::crond {
@@ -49,7 +40,11 @@ class pige::crond {
 
   file { "/etc/cron.d/pige":
     source => "$source_base/files/pige/pige.cron.d",
-    require => Package[cron]
+    require => Package[cron],
+    # It should be default .. but :
+    # File found in 664 with this message from cron :
+    # INSECURE MODE (group/other writable) (/etc/cron.d/pige)
+    mode => 644
   }
 }
 
@@ -71,13 +66,21 @@ class pige::frontend {
     source => "$source_base/files/pige/production.rb",
     require => Package[pigecontrol]
   }
+
+  include apt::tryphon::dev
   package { pigecontrol:
-    ensure => "0.17-2",
-    require => [Apt::Source[tryphon], Package[libapache2-mod-passenger], Package[sox]],
+    ensure => '0.19-1+build2221',
+    require => [Apt::Source[tryphon-dev], Package[libapache2-mod-passenger], Package[sox]],
   }
 
   file { "/var/log.model/pige":
     ensure => directory,
     owner => www-data
+  }
+}
+
+class pige::uploads {
+  file { "/etc/puppet/manifests/classes/pige-uploads.pp":
+    source => "puppet:///files/pige/manifest-uploads.pp"
   }
 }

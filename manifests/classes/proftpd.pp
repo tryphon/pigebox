@@ -8,7 +8,5 @@ class proftpd {
     require => Package[proftpd]
   }
 
-  user { ftp:
-    shell => "/bin/sh"
-  }
+  include proftpd::common
 }

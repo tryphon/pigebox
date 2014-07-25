@@ -7,7 +7,8 @@ Dir['tasks/**/*.rake'].each { |t| load t }
 
 SystemBuilder::BoxTasks.new(:pigebox) do |box|
   box.boot do |boot|
-    boot.version = :squeeze
+    boot.version = :wheezy
+    boot.architecture = :amd64
   end
 
   # Ignore some status details (especially for vm:start_and_save)

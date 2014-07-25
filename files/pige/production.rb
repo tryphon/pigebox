@@ -1,48 +1,76 @@
-# Settings specified here will take precedence over those in config/environment.rb
+Pigecontrol::Application.configure do
+  # Settings specified here will take precedence over those in config/application.rb
 
-# The production environment is meant for finished, "live" apps.
-# Code is not reloaded between requests
-config.cache_classes = true
+  # Code is not reloaded between requests
+  config.cache_classes = true
 
-# Enable threaded mode
-# config.threadsafe!
+  # Full error reports are disabled and caching is turned on
+  config.consider_all_requests_local       = false
+  config.action_controller.perform_caching = true
 
-# Use a different logger for distributed setups
-require 'syslog/logger'
-config.logger = Syslog::Logger.new("rails/pigecontrol").tap do |syslog|
-  syslog.level = Logger::INFO
-end
+  # Disable Rails's static asset server (Apache or nginx will already do this)
+  config.serve_static_assets = false
 
-# Full error reports are disabled and caching is turned on
-config.action_controller.consider_all_requests_local = false
-config.action_controller.perform_caching             = true
+  # Compress JavaScripts and CSS
+  config.assets.compress = true
 
-#Set default timezone to the cute city of Paris
-config.time_zone = 'Paris'
+  # Don't fallback to assets pipeline if a precompiled asset is missed
+  config.assets.compile = false
 
-# Use a different cache store in production
-# config.cache_store = :mem_cache_store
+  # Generate digests for assets URLs
+  config.assets.digest = true
 
-# Enable serving of images, stylesheets, and javascripts from an asset server
-# config.action_controller.asset_host                  = "http://assets.example.com"
+  # Defaults to nil and saved in location specified by config.assets.prefix
+  # config.assets.manifest = YOUR_PATH
 
-# Disable delivery errors, bad email addresses will be ignored
-# config.action_mailer.raise_delivery_errors = false
+  # Specifies the header that your server uses for sending files
+  # config.action_dispatch.x_sendfile_header = "X-Sendfile" # for apache
+  # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for nginx
 
-config.after_initialize do
-  Chunk.storage_directory = "/srv/pige/chunks"
+  # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
+  # config.force_ssl = true
 
-  PuppetConfiguration.configuration_file = "/var/etc/puppet/manifests/config.pp"
-  PuppetConfiguration.system_update_command = "sudo /usr/local/sbin/launch-puppet"
+  # See everything in the log (default is :info)
+  # config.log_level = :debug
 
-  # SavePoint.timestamp_file = "/boot/config.pp"
-  SavePoint.save_command = "sudo /usr/local/sbin/save-puppet-config"
+  # Prepend all log lines with the following tags
+  # config.log_tags = [ :subdomain, :uuid ]
 
-  Pige::Record::Index.record_directory = "/srv/pige/records"
+  # Use a different logger for distributed setups
+  # config.logger = ActiveSupport::TaggedLogging.new(SyslogLogger.new)
+  config.logger = Syslog::Logger.new("rails/pigecontrol").tap do |syslog|
+    syslog.level = Logger::INFO
+  end
 
-  # FIXME see #784
-  require 'box'
-  Box::CLI::Root.new.setup Box::CLI::Root.setup_file
+  # Use a different cache store in production
+  # config.cache_store = :mem_cache_store
 
-  Box::Release.install_command = "sudo /usr/local/sbin/box-upgrade"
+  # Enable serving of images, stylesheets, and JavaScripts from an asset server
+  # config.action_controller.asset_host = "http://assets.example.com"
+
+  # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
+  # config.assets.precompile += %w( search.js )
+
+  # Disable delivery errors, bad email addresses will be ignored
+  # config.action_mailer.raise_delivery_errors = false
+
+  # Enable threaded mode
+  # config.threadsafe!
+
+  # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
+  # the I18n.default_locale when a translation can not be found)
+  config.i18n.fallbacks = true
+
+  # Send deprecation notices to registered listeners
+  config.active_support.deprecation = :notify
+
+  # Log the query plan for queries taking more than this (works
+  # with SQLite, MySQL, and PostgreSQL)
+  # config.active_record.auto_explain_threshold_in_seconds = 0.5
+
+  config.after_initialize do
+    Chunk.storage_directory = "/srv/pige/chunks"
+    Pige::Record::Index.record_directory = "/srv/pige/records"
+    Upload.watch_directory = "/srv/pige/uploads"
+  end
 end
