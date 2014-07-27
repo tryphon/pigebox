@@ -83,4 +83,9 @@ class pige::uploads {
   file { "/etc/puppet/manifests/classes/pige-uploads.pp":
     source => "puppet:///files/pige/manifest-uploads.pp"
   }
+  exec { "add-www-data-user-to-ftp-group":
+    command => "adduser www-data ftp",
+    unless => "grep '^ftp:.*www-data' /etc/group",
+    require => [Package[apache], Group[ftp]]
+  }
 }
