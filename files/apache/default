@@ -7,7 +7,6 @@
   PassengerDefaultUser www-data
   PassengerMaxPoolSize 3
   PassengerMaxRequests 10000
-  PassengerLogLevel 3
   <Directory /usr/share/pigecontrol/public>
      AllowOverride None
      Order allow,deny
