@@ -10,8 +10,7 @@ Feature: Manage labels
     Then a label "Label 1" should exist
 
   Scenario: Create a label with UDP request
-    When I send "label: Label 1" in UDP on port 9999
-    And I wait 1 second
+    When a label "Label 1" is created via UDP
     Then a label "Label 1" should exist
 
   @long
