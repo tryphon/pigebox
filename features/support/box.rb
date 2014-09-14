@@ -3,7 +3,7 @@ require 'open-uri'
 require 'fileutils'
 
 def current_box
-  @current_box = VMBox.new("pigebox").tap do |vmbox|
+  @current_box ||= VMBox.new("pigebox").tap do |vmbox|
     vmbox.ignored_status_details << /^pige_/
   end
 end
