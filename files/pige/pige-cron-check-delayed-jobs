@@ -1,7 +1,7 @@
 #!/bin/bash
 
 daemon="pige-job"
-pid_file="/var/run/pige.pid"
+pid_file="/var/run/pigecontrol.pid"
 
 function check_daemon() {
   if [ ! -f $pid_file ]; then
@@ -26,6 +26,6 @@ function check_daemon() {
 }
 
 if ! check_daemon; then
-    echo "No daemon found, restart it" | logger -i -t "check-delayed-jobs" 
+    echo "No daemon found, restart it" | logger -i -t "check-delayed-jobs"
     /etc/init.d/pigecontrol restart
 fi
