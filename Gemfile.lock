@@ -8,9 +8,9 @@ GIT
 
 GIT
   remote: git://projects.tryphon.priv/box
-  revision: e3440de0222dc01d494a9ce5e6486368bc5d2b6b
+  revision: 1abefc9d527327761e07a584238bd092fe6e52bb
   specs:
-    tryphon-box (0.20)
+    tryphon-box (0.21)
       activesupport (~> 3.2.17)
       facter (~> 1.7.5)
       httparty
@@ -27,7 +27,7 @@ GIT
 
 GIT
   remote: git://projects.tryphon.priv/system-builder
-  revision: 966eea4f82fe6d8b06a0e7a7e300b36cecbdee38
+  revision: d53be174b4d99f30a8bc7a31f6d6fe51b20a42f1
   specs:
     system-builder (0.0.26)
       qemu
@@ -49,7 +49,7 @@ GIT
 GEM
   remote: https://rubygems.org/
   specs:
-    activesupport (3.2.19)
+    activesupport (3.2.20)
       i18n (~> 0.6, >= 0.6.4)
       multi_json (~> 1.0)
     builder (3.2.2)
@@ -78,7 +78,7 @@ GEM
     ffi (1.0.11)
     gherkin (2.11.6)
       json (>= 1.7.6)
-    httparty (0.13.1)
+    httparty (0.13.3)
       json (~> 1.8)
       multi_xml (>= 0.5.2)
     i18n (0.6.11)
@@ -94,7 +94,7 @@ GEM
     net-ssh (2.9.1)
     nokogiri (1.6.1)
       mini_portile (~> 0.5.0)
-    parallel (1.3.2)
+    parallel (1.3.3)
     polyglot (0.3.5)
     puppet (2.7.26)
       facter (~> 1.5)

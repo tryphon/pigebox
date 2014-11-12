@@ -7,11 +7,7 @@ import "box"
 $source_base="/tmp/puppet"
 
 include box
-
 include box::audio
-
-$box_storage_name="pige"
-include box::storage
 
 include pige
 
