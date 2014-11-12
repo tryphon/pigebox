@@ -16,4 +16,4 @@ SystemBuilder::BoxTasks.new(:pigebox) do |box|
 end
 
 desc "Run continuous integration tasks"
-task :ci => "pigebox:buildbot"
+task :ci => "pigebox:ci"
