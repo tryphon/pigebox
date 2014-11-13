@@ -8,9 +8,9 @@ GIT
 
 GIT
   remote: git://projects.tryphon.priv/box
-  revision: 1abefc9d527327761e07a584238bd092fe6e52bb
+  revision: e6793e383a7208f48bed959b3984237b41f5627e
   specs:
-    tryphon-box (0.21)
+    tryphon-box (0.22)
       activesupport (~> 3.2.17)
       facter (~> 1.7.5)
       httparty
@@ -27,7 +27,7 @@ GIT
 
 GIT
   remote: git://projects.tryphon.priv/system-builder
-  revision: 2569bb0c3665989f57cf0e7d003ffbef00d7a222
+  revision: ddadae584e4020771eb7ddb0b1e8f8371f856831
   specs:
     system-builder (0.0.26)
       qemu
