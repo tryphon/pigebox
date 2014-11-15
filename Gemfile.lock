@@ -29,9 +29,6 @@ GIT
   remote: git://projects.tryphon.priv/system-builder
   revision: ddadae584e4020771eb7ddb0b1e8f8371f856831
   specs:
-    system-builder (0.0.26)
-      qemu
-      tryphon-vmbox
 
 GIT
   remote: git://projects.tryphon.priv/vmbox
@@ -45,6 +42,13 @@ GIT
       net-ssh
       qemu (~> 0.4)
       tryphon-box
+
+PATH
+  remote: ~/Projects/SystemBuilder
+  specs:
+    system-builder (0.0.26)
+      qemu
+      tryphon-vmbox
 
 GEM
   remote: https://rubygems.org/
