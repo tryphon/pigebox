@@ -1,6 +1,2 @@
-<% if scope.lookupvar('alsa::device_id') == "M2496" %>
-alsa_options="--alsa-channels=12 --alsa-remix=1:2"
-<% end %>
-
-DAEMON_OPTS="backup --alsa-device=<%= scope.lookupvar('alsa::device') %> $alsa_options --http-bind=:9000 -files-root=/srv/pige/records/ --log-syslog"
+DAEMON_OPTS="backup <%= `go-broadcast-alsa-options #{scope.lookupvar('alsa::device')} #{scope.lookupvar('alsa::device_id')}` %> --http-bind=:9000 -files-root=/srv/pige/records/ --log-syslog"
 DAEMON_USER="pige"
