@@ -1,16 +1,8 @@
 GIT
-  remote: git://github.com/albanpeignier/capybara-mechanize.git
-  revision: 664f5903d2f3ebb2feb5f2b2fc7677e2ac25f0e4
-  specs:
-    capybara-mechanize (0.2.5)
-      capybara (~> 0.4.0)
-      mechanize (~> 1.0.0)
-
-GIT
   remote: git://projects.tryphon.priv/box
-  revision: e6793e383a7208f48bed959b3984237b41f5627e
+  revision: 9be2482182ee2aae3b0a74f9ebccec0a7c9a7572
   specs:
-    tryphon-box (0.22)
+    tryphon-box (1.03)
       activesupport (~> 3.2.17)
       facter (~> 1.7.5)
       httparty
@@ -20,9 +12,9 @@ GIT
 
 GIT
   remote: git://projects.tryphon.priv/ruby-qemu
-  revision: 25b3d4afba8a0c881821c08e0ce1faf1b172ce9a
+  revision: faaec24eec03299a5b9dab51f6fb4c1bae56b93f
   specs:
-    qemu (0.4)
+    qemu (1.0)
       daemons
 
 GIT
@@ -35,7 +27,7 @@ GIT
 
 GIT
   remote: git://projects.tryphon.priv/vmbox
-  revision: cfcc92a2f9ae5392920fa40211f89186dc4c2e37
+  revision: db7641ce6a76f8ce9586cfadedf8b9f1f460917b
   specs:
     tryphon-vmbox (0.0.1)
       activesupport (~> 3.2.1)
@@ -43,58 +35,54 @@ GIT
       json
       net-scp
       net-ssh
-      qemu (~> 0.4)
+      qemu (~> 1.0)
       tryphon-box
 
 GEM
   remote: https://rubygems.org/
   specs:
-    activesupport (3.2.20)
+    activesupport (3.2.21)
       i18n (~> 0.6, >= 0.6.4)
       multi_json (~> 1.0)
     builder (3.2.2)
-    capybara (0.4.1.2)
-      celerity (>= 0.7.9)
-      culerity (>= 0.2.4)
+    capybara (2.4.4)
       mime-types (>= 1.16)
       nokogiri (>= 1.3.3)
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
-      selenium-webdriver (>= 0.0.27)
-      xpath (~> 0.1.3)
-    celerity (0.9.1)
-    childprocess (0.2.3)
-      ffi (~> 1.0.6)
+      xpath (~> 2.0)
+    cliver (0.3.2)
     cocaine (0.2.1)
     cucumber (1.2.1)
       builder (>= 2.1.2)
       diff-lcs (>= 1.1.3)
       gherkin (~> 2.11.0)
       json (>= 1.4.6)
-    culerity (0.2.15)
-    daemons (1.1.9)
+    daemons (1.2.2)
     diff-lcs (1.1.3)
     facter (1.7.6)
-    ffi (1.0.11)
     gherkin (2.11.6)
       json (>= 1.7.6)
     httparty (0.13.3)
       json (~> 1.8)
       multi_xml (>= 0.5.2)
-    i18n (0.6.11)
-    json (1.8.1)
-    mechanize (1.0.0)
-      nokogiri (>= 1.2.1)
-    mime-types (1.17.2)
-    mini_portile (0.5.2)
-    multi_json (1.0.4)
+    i18n (0.7.0)
+    json (1.8.2)
+    mime-types (2.4.3)
+    mini_portile (0.6.2)
+    multi_json (1.11.0)
     multi_xml (0.5.5)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
-    net-ssh (2.9.1)
-    nokogiri (1.6.1)
-      mini_portile (~> 0.5.0)
-    parallel (1.3.3)
+    net-ssh (2.9.2)
+    nokogiri (1.6.6.2)
+      mini_portile (~> 0.6.0)
+    parallel (1.4.1)
+    poltergeist (1.6.0)
+      capybara (~> 2.1)
+      cliver (~> 0.3.1)
+      multi_json (~> 1.0)
+      websocket-driver (>= 0.2.0)
     polyglot (0.3.5)
     puppet (2.7.26)
       facter (~> 1.5)
@@ -102,8 +90,8 @@ GEM
     puppet-syntax (1.2.0)
       puppet (>= 2.7.0)
       rake
-    rack (1.3.5)
-    rack-test (0.6.1)
+    rack (1.6.0)
+    rack-test (0.6.3)
       rack (>= 1.0)
     rake (0.9.2.2)
     rspec (2.7.0)
@@ -114,12 +102,6 @@ GEM
     rspec-expectations (2.7.0)
       diff-lcs (~> 1.1.2)
     rspec-mocks (2.7.0)
-    rubyzip (0.9.5)
-    selenium-webdriver (2.14.0)
-      childprocess (>= 0.2.1)
-      ffi (~> 1.0.9)
-      multi_json (~> 1.0.4)
-      rubyzip
     sshkey (1.6.1)
     steto (0.0.7)
       cocaine (= 0.2.1)
@@ -127,8 +109,11 @@ GEM
       parallel
     treetop (1.5.3)
       polyglot (~> 0.3)
-    trollop (2.0)
-    xpath (0.1.4)
+    trollop (2.1.2)
+    websocket-driver (0.5.3)
+      websocket-extensions (>= 0.1.0)
+    websocket-extensions (0.1.2)
+    xpath (2.0.0)
       nokogiri (~> 1.3)
 
 PLATFORMS
@@ -136,9 +121,9 @@ PLATFORMS
 
 DEPENDENCIES
   capybara
-  capybara-mechanize!
   cucumber
   net-ssh
+  poltergeist
   puppet (~> 2.7.21)
   puppet-lint
   puppet-syntax
