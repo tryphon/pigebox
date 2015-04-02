@@ -2,7 +2,7 @@
 default_directories = "features modules/box/features"
 rerun = File.file?('rerun.txt') ? IO.read('rerun.txt') : ""
 rerun_opts = rerun.to_s.strip.empty? ? "--format #{ENV['CUCUMBER_FORMAT'] || 'progress'} #{default_directories}" : "--format #{ENV['CUCUMBER_FORMAT'] || 'pretty'} #{rerun}"
-std_opts = "--format #{ENV['CUCUMBER_FORMAT'] || 'pretty'} --strict --tags ~@wip"
+std_opts = "--format #{ENV['CUCUMBER_FORMAT'] || 'pretty'} --format json --out cucumber.json --strict --tags ~@wip"
 %>
 default: <%= std_opts %> <%= default_directories %>
 wip: --tags @wip:3 --wip <%= default_directories %>

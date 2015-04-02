@@ -8,3 +8,4 @@ log/*
 tmp/*
 .bundle/*
 /.ruby-version
+cucumber.json
