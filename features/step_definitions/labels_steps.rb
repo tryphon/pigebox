@@ -16,16 +16,20 @@ When /^a label "(.*?)" is created via UDP$/ do |name|
   begin
     socket.send "label: #{name}", 0, current_box.ip_address, 9999
     message = socket.recvfrom(10)
-    message[0].should == "ACK"
+    expect(message[0]).to eq("ACK")
   ensure
     socket.close
   end
 end
 
+def labels_with(text)
+  current_box.get("sources/1/labels.json", query: { term: text })
+end
+
 Then /a label "([^"]*)" should exist/ do |label_name|
-  current_box.get("sources/1/labels.json", query: { term: label_name }).should_not be_empty
+  expect(labels_with(label_name)).not_to be_empty
 end
 
 Then /a label "([^"]*)" should not exist/ do |label_name|
-  current_box.get("sources/1/labels.json", query: { term: label_name }).should be_empty
+  expect(labels_with(label_name)).to be_empty
 end
