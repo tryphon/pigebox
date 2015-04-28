@@ -32,7 +32,7 @@ class pige::frontend {
 
   include apt::tryphon::dev
   package { pigecontrol:
-    ensure => '0.19-1+build2240',
+    ensure => '0.19-1+build2241',
     require => [Apt::Source[tryphon-dev], Package[libapache2-mod-passenger], Package[sox]],
   }
 
